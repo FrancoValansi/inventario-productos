@@ -1,4 +1,4 @@
-import "./InventoryTable.css";
+import "./inventoryTable.css";
 
 import {
     Paper,
@@ -12,7 +12,6 @@ import {
     TableRow,
 } from "@mui/material";
 
-
 export interface Producto {
     id: number;
     nombre: string;
@@ -21,12 +20,11 @@ export interface Producto {
     stock: number;
 }
 
-interface InventoryTableProps {
+interface Props {
     productos: Producto[];
-    onAgregar: () => void;
 }
 
-function InventoryTable({ productos, onAgregar }: InventoryTableProps) {
+function InventoryTable({ productos }: Props) {
     return (
         <div className="inventory">
             <div className="inventory-header">
@@ -35,8 +33,7 @@ function InventoryTable({ productos, onAgregar }: InventoryTableProps) {
                     <p>Gestión y control de stock en tiempo real</p>
                 </div>
 
-                <Button variant="contained"
-                    onClick={onAgregar} >
+                <Button variant="contained">
                     Agregar producto
                 </Button>
 
