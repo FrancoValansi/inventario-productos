@@ -10,6 +10,7 @@ import {
 
 interface ConfirmarEliminarProps {
   abierto: boolean;
+  nombreProducto: string;
   procesando: boolean;
   alCancelar: () => void;
   alConfirmar: () => void;
@@ -17,6 +18,7 @@ interface ConfirmarEliminarProps {
 
 export default function ConfirmarEliminar({
   abierto,
+  nombreProducto,
   procesando,
   alCancelar,
   alConfirmar,
@@ -30,7 +32,7 @@ export default function ConfirmarEliminar({
       <DialogTitle>Eliminar producto</DialogTitle>
 
       <DialogContent>
-        ¿Está seguro de que desea eliminar este producto?
+        ¿Está seguro de que desea eliminar el producto "<strong>{nombreProducto}</strong>"?
       </DialogContent>
 
       <DialogActions>

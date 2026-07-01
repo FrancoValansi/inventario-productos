@@ -6,14 +6,14 @@ import FormularioProducto from "./components/FormularioProducto";
 import ConfirmarEliminar from "./components/ConfirmarEliminar";
 import Mensaje from "./components/Mensaje";
 
-import { CircularProgress } from "@mui/material";
-
 function App() {
 
   const [productos, setProductos] = useState<Producto[]>([]);
   const [cargando, setCargando] = useState(true);
   const [errorCarga, setErrorCarga] = useState("");
   const [dialogoAbierto, setDialogoAbierto] = useState(false);
+
+  const [busqueda, setBusqueda] = useState("");
 
   const [procesando, setProcesando] = useState(false);
 
@@ -37,6 +37,11 @@ function App() {
   stock !== "" &&
   Number(precio) >= 0 &&
   Number(stock) >= 0;
+
+  const productosFiltrados = productos.filter((producto) =>
+      producto.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
+      producto.descripcion.toLowerCase().includes(busqueda.toLowerCase())
+  );
 
   useEffect(() => {
     obtenerProductos();
@@ -219,17 +224,6 @@ function App() {
     );
     setProcesando(false);
   }
-  
-  if (cargando) {
-    return (
-      <div className="app">
-        <div className="mensaje-carga">
-          <CircularProgress />
-          <h2>Cargando productos...</h2>
-        </div>
-      </div>
-    );
-  }
 
   if (errorCarga) {
     return (
@@ -242,7 +236,10 @@ function App() {
   return (
     <div className="app">
       <InventoryTable
-        productos={productos}
+        productos={productosFiltrados}
+        cargando={cargando}
+        busqueda={busqueda}
+        setBusqueda={setBusqueda}
         alAgregar={abrirFormulario}
         alEditar={abrirEdicion}
         alEliminar={abrirDialogEliminar} />
@@ -269,6 +266,7 @@ function App() {
 
       <ConfirmarEliminar
         abierto={dialogoEliminarAbierto}
+        nombreProducto={productoEliminar?.nombre ?? ""}
         procesando={procesando}
         alCancelar={cerrarDialogEliminar}
         alConfirmar={eliminarProducto}
