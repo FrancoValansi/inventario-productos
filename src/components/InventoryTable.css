@@ -15,12 +15,9 @@ body{
     margin-bottom: 24px;
 }
 
-.inventory h1 {
-    margin-bottom: 4px;
-}
-
-.inventory p {
-    color: #666;
+.inventory-header button{
+    padding:10px 18px;
+    font-weight:600;
 }
 
 .inventory-header h1 {
@@ -31,6 +28,39 @@ body{
 .inventory-header p {
     margin-top: 4px;
     color: #666;
+}
+
+.inventory-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.inventory-title h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.inventory-title p {
+    margin-top: 4px;
+    color: #6b7280;
+}
+
+
+.inventory h1{
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.inventory p{
+    color:#6b7280;
+    font-size:0.95rem;
+}
+
+.inventory-paper {
+    border-radius: 12px;
 }
 
 .search {
@@ -57,12 +87,13 @@ body{
     margin:20px 0;
 }
 
-.inventory-paper {
-    border-radius: 12px;
+
+.MuiTableHead-root{
+    background:#f8fafc;
 }
 
-.MuiTableHead-root {
-    background-color: #f5f5f5;
+.MuiTableHead-root th{
+    font-weight:700;
 }
 
 .MuiTableRow-root:hover{

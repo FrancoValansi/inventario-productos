@@ -29,7 +29,7 @@ Esta separación facilita el mantenimiento y la reutilización del código.
 
 ---
 
-### Funcionalidades
+## Funcionalidades
 
 - Visualización de productos.
 - Alta de productos.
@@ -95,6 +95,12 @@ La aplicación quedará disponible en:
 La aplicación desplegada puede consultarse en:
 
 **https://inventario-productos-orcin.vercel.app/**
+
+---
+
+## Captura
+
+![Captura de la aplicación](docs/captura.png)
 
 ---
 

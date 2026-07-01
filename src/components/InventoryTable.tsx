@@ -17,6 +17,7 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SearchIcon from "@mui/icons-material/Search";
+import Inventory2Icon from "@mui/icons-material/Inventory2";
 
 export interface Producto {
     id: number;
@@ -48,9 +49,13 @@ function InventoryTable({
     return (
         <div className="inventory">
             <div className="inventory-header">
-                <div>
+                <div className="inventory-title">
+                    <Inventory2Icon fontSize="large" />
+
+                    <div>
                     <h1>Inventario de Productos</h1>
                     <p>Gestión y control de stock en tiempo real</p>
+                    </div>
                 </div>
 
                 <Button
