@@ -23,6 +23,7 @@ interface FormularioProductoProps {
   setPrecio: React.Dispatch<React.SetStateAction<string>>;
   setStock: React.Dispatch<React.SetStateAction<string>>;
   formularioValido: boolean;
+  modoEdicion: boolean;
   alCerrar: () => void;
   alGuardar: () => void;
 }
@@ -38,6 +39,7 @@ export default function FormularioProducto({
   setPrecio,
   setStock,
   formularioValido,
+  modoEdicion,
   alCerrar,
   alGuardar,
 }: FormularioProductoProps) {
@@ -75,7 +77,7 @@ export default function FormularioProducto({
       <form onSubmit={manejarSubmit}>
 
         <DialogTitle>
-          Agregar producto
+          {modoEdicion ? "Editar producto" : "Agregar producto"}
         </DialogTitle>
 
         <DialogContent className="formulario-contenido">

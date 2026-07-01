@@ -23,10 +23,11 @@ export interface Producto {
 
 interface InventoryTableProps {
     productos: Producto[];
-    onAgregar: () => void;
+    alAgregar: () => void;
+    alEditar: (producto: Producto) => void;
 }
 
-function InventoryTable({ productos, onAgregar }: InventoryTableProps) {
+function InventoryTable({ productos, alAgregar, alEditar }: InventoryTableProps) {
     return (
         <div className="inventory">
             <div className="inventory-header">
@@ -36,7 +37,7 @@ function InventoryTable({ productos, onAgregar }: InventoryTableProps) {
                 </div>
 
                 <Button variant="contained"
-                    onClick={onAgregar} >
+                    onClick={alAgregar} >
                     Agregar producto
                 </Button>
 
@@ -93,6 +94,7 @@ function InventoryTable({ productos, onAgregar }: InventoryTableProps) {
                                         <Button
                                             size="small"
                                             variant="outlined"
+                                            onClick={() => alEditar(producto)}
                                         >
                                             Editar
                                         </Button>

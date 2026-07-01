@@ -14,6 +14,7 @@ function App() {
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
   const [stock, setStock] = useState("");
+  const [productoEditando, setProductoEditando] = useState<Producto | null>(null);
 
   const formularioValido =
   nombre.trim() !== "" &&
@@ -40,7 +41,19 @@ function App() {
 
   function cerrarFormulario() {
     limpiarFormulario();
+    setProductoEditando(null);
     setDialogoAbierto(false);
+  }
+
+  function abrirEdicion(producto: Producto) {
+    setProductoEditando(producto);
+
+    setNombre(producto.nombre);
+    setDescripcion(producto.descripcion);
+    setPrecio(producto.precio.toString());
+    setStock(producto.stock.toString());
+
+    setDialogoAbierto(true);
   }
 
   async function obtenerProductos() {
@@ -58,19 +71,20 @@ function App() {
     setCargando(false);
 
   }
+  
+  async function guardarProducto() {
+    if (productoEditando) {
+      await editarProducto();
+    } else {
+      await agregarProducto();
+    }
+  }
 
   async function agregarProducto() {
     if (!formularioValido) {
-    alert("Complete correctamente los datos del producto.");
-    return;
-  }
-    console.log({
-      nombre,
-      descripcion,
-      precio,
-      stock
-    });
-
+      alert("Complete correctamente los datos del producto.");
+      return;
+    }
 
     const { error } = await supabase
       .from("productos")
@@ -89,8 +103,33 @@ function App() {
       return;
     }
 
-    obtenerProductos();
+    await obtenerProductos();
     cerrarFormulario();
+  }
+  
+  async function editarProducto() {
+    console.log(productoEditando);
+    if (!productoEditando) return;
+
+    const { data, error } = await supabase
+    .from("productos")
+    .update({
+      nombre,
+      descripcion,
+      precio: Number(precio),
+      stock: Number(stock),
+    })
+    .eq("id", productoEditando.id)
+    .select();
+
+  if (error || !data || data.length === 0) {
+    console.error(error);
+    alert("No se pudo editar el producto.");
+    return;
+  }
+
+  await obtenerProductos();
+  cerrarFormulario();
   }
   
   if (cargando) {
@@ -113,7 +152,8 @@ function App() {
     <div className="app">
       <InventoryTable
         productos={productos}
-        onAgregar={abrirFormulario} />
+        alAgregar={abrirFormulario}
+        alEditar={abrirEdicion} />
 
       <FormularioProducto
         abierto={dialogoAbierto}
@@ -129,8 +169,9 @@ function App() {
         setStock={setStock}
 
         formularioValido={formularioValido}
+        modoEdicion={productoEditando !== null}
         alCerrar={cerrarFormulario}
-        alGuardar={agregarProducto}
+        alGuardar={guardarProducto}
       />
     </div>
   );
