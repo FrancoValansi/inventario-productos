@@ -76,7 +76,8 @@ function InventoryTable({
 
             </div>
 
-            <Paper elevation={2}>
+            <Paper elevation={2}
+                className="inventory-paper">
 
                 {cargando ? (
                     <div className="mensaje-carga">

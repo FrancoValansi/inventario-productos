@@ -102,7 +102,9 @@ function App() {
   async function obtenerProductos() {
     const { data, error } = await supabase
       .from("productos")
-      .select("*");
+      .select("*")
+      .order("nombre", { ascending: true })
+      .order("id", { ascending: true });
 
     if (error) {
       console.error(error);

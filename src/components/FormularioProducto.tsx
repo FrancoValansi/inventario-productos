@@ -104,7 +104,7 @@ export default function FormularioProducto({
           />
 
           <TextField
-            label="Descripción"
+            label="Descripción (opcional)"
             value={descripcion}
             onChange={(e) => setDescripcion(e.target.value)}
             fullWidth
