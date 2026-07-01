@@ -23,6 +23,7 @@ interface FormularioProductoProps {
   setPrecio: React.Dispatch<React.SetStateAction<string>>;
   setStock: React.Dispatch<React.SetStateAction<string>>;
   formularioValido: boolean;
+  procesando: boolean;
   modoEdicion: boolean;
   alCerrar: () => void;
   alGuardar: () => void;
@@ -39,6 +40,7 @@ export default function FormularioProducto({
   setPrecio,
   setStock,
   formularioValido,
+  procesando,
   modoEdicion,
   alCerrar,
   alGuardar,
@@ -73,6 +75,7 @@ export default function FormularioProducto({
       onClose={alCerrar}
       fullWidth
       maxWidth="sm"
+      disableRestoreFocus
     >
       <form onSubmit={manejarSubmit}>
 
@@ -149,16 +152,19 @@ export default function FormularioProducto({
 
         <DialogActions>
 
-          <Button onClick={alCerrar}>
+          <Button
+            onClick={alCerrar}
+            disabled={procesando}
+          >
             Cancelar
           </Button>
 
           <Button
             type="submit"
             variant="contained"
-            disabled={!formularioValido}
+            disabled={!formularioValido || procesando}
           >
-            Guardar
+            {procesando ? "Guardando..." : "Guardar"}
           </Button>
 
         </DialogActions>
