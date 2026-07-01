@@ -3,6 +3,7 @@ import { supabase } from "./supabase";
 import InventoryTable from "./components/InventoryTable";
 import type { Producto } from "./components/InventoryTable";
 import FormularioProducto from "./components/FormularioProducto";
+import ConfirmarEliminar from "./components/ConfirmarEliminar";
 
 function App() {
 
@@ -15,6 +16,8 @@ function App() {
   const [precio, setPrecio] = useState("");
   const [stock, setStock] = useState("");
   const [productoEditando, setProductoEditando] = useState<Producto | null>(null);
+  const [dialogoEliminarAbierto, setDialogoEliminarAbierto] = useState(false);
+  const [productoEliminar, setProductoEliminar] = useState<Producto | null>(null);
 
   const formularioValido =
   nombre.trim() !== "" &&
@@ -54,6 +57,16 @@ function App() {
     setStock(producto.stock.toString());
 
     setDialogoAbierto(true);
+  }
+
+  function abrirDialogEliminar(producto: Producto) {
+    setProductoEliminar(producto);
+    setDialogoEliminarAbierto(true);
+  }
+
+  function cerrarDialogEliminar() {
+    setProductoEliminar(null);
+    setDialogoEliminarAbierto(false);
   }
 
   async function obtenerProductos() {
@@ -131,6 +144,25 @@ function App() {
   await obtenerProductos();
   cerrarFormulario();
   }
+
+    async function eliminarProducto() {
+    if (!productoEliminar) return;
+
+    const { error, data } = await supabase
+      .from("productos")
+      .delete()
+      .eq("id", productoEliminar.id)
+      .select();
+
+    if (error || !data || data.length === 0) {
+      console.error(error);
+      alert("No se pudo eliminar el producto.");
+      return;
+    }
+
+    await obtenerProductos();
+    cerrarDialogEliminar();
+  }
   
   if (cargando) {
     return (
@@ -153,7 +185,8 @@ function App() {
       <InventoryTable
         productos={productos}
         alAgregar={abrirFormulario}
-        alEditar={abrirEdicion} />
+        alEditar={abrirEdicion}
+        alEliminar={abrirDialogEliminar} />
 
       <FormularioProducto
         abierto={dialogoAbierto}
@@ -172,6 +205,12 @@ function App() {
         modoEdicion={productoEditando !== null}
         alCerrar={cerrarFormulario}
         alGuardar={guardarProducto}
+      />
+
+      <ConfirmarEliminar
+        abierto={dialogoEliminarAbierto}
+        alCancelar={cerrarDialogEliminar}
+        alConfirmar={eliminarProducto}
       />
     </div>
   );

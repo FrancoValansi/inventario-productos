@@ -25,9 +25,10 @@ interface InventoryTableProps {
     productos: Producto[];
     alAgregar: () => void;
     alEditar: (producto: Producto) => void;
+    alEliminar: (producto: Producto) => void;
 }
 
-function InventoryTable({ productos, alAgregar, alEditar }: InventoryTableProps) {
+function InventoryTable({ productos, alAgregar, alEditar, alEliminar }: InventoryTableProps) {
     return (
         <div className="inventory">
             <div className="inventory-header">
@@ -104,6 +105,7 @@ function InventoryTable({ productos, alAgregar, alEditar }: InventoryTableProps)
                                             color="error"
                                             variant="outlined"
                                             className="eliminar"
+                                            onClick={() => alEliminar(producto)}
                                         >
                                             Eliminar
                                         </Button>
