@@ -14,7 +14,7 @@ Es una aplicación web pensada para gestionar un inventario de productos. Permit
 - Material UI → para no reinventar la rueda en estilos y contar con componentes listos, responsivos y consistentes.
 
 **Backend:**
-- Supabase → se eligió como Backend-as-a-Service porque ofrece PostgreSQL y API lista para operaciones CRUD. Esto evita tener que levantar un backend propio y acelera el desarrollo.
+- Supabase → se eligió como Backend-as-a-Service porque ofrece PostgreSQL y API lista para operaciones CRUD. Esto evita tener que levantar un backend propio y acelera el desarrollo. Es utilizada por la aplicación para almacenar la información del inventario, incluyendo nombre, descripción, precio y stock.
 
 **Arquitectura:**
 - Basada en componentes.  
@@ -56,6 +56,8 @@ Se usó **Banani** para simplificar la construcción de la UI de la pantalla pri
 Se usó **Copilot** como guía para formular la documentación.
 
 Todas las decisiones finales de implementación fueron revisadas, adaptadas e integradas manualmente en el proyecto.
+
+---
 
 ## Cómo instalarlo y correrlo localmente
 
