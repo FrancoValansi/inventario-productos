@@ -1,5 +1,3 @@
-import "./ConfirmarEliminar.css";
-
 import {
   Dialog,
   DialogTitle,

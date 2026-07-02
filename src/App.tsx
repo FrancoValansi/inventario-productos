@@ -32,15 +32,15 @@ function App() {
   const [mensajeEstado, setMensajeEstado] = useState<"success" | "error">("success");
 
   const formularioValido =
-  nombre.trim() !== "" &&
-  precio !== "" &&
-  stock !== "" &&
-  Number(precio) >= 0 &&
-  Number(stock) >= 0;
+    nombre.trim() !== "" &&
+    precio !== "" &&
+    stock !== "" &&
+    Number(precio) >= 0 &&
+    Number(stock) >= 0;
 
   const productosFiltrados = productos.filter((producto) =>
-      producto.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
-      producto.descripcion.toLowerCase().includes(busqueda.toLowerCase())
+    producto.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
+    producto.descripcion.toLowerCase().includes(busqueda.toLowerCase())
   );
 
   useEffect(() => {
@@ -116,7 +116,7 @@ function App() {
     setCargando(false);
 
   }
-  
+
   async function guardarProducto() {
     if (productoEditando) {
       await editarProducto();
@@ -164,23 +164,22 @@ function App() {
 
     setProcesando(false);
   }
-  
+
   async function editarProducto() {
-    console.log(productoEditando);
     if (!productoEditando) return;
 
     setProcesando(true);
 
     const { data, error } = await supabase
-    .from("productos")
-    .update({
-      nombre,
-      descripcion,
-      precio: Number(precio),
-      stock: Number(stock),
-    })
-    .eq("id", productoEditando.id)
-    .select();
+      .from("productos")
+      .update({
+        nombre,
+        descripcion,
+        precio: Number(precio),
+        stock: Number(stock),
+      })
+      .eq("id", productoEditando.id)
+      .select();
 
     if (error || !data || data.length === 0) {
       console.error(error);
@@ -199,7 +198,7 @@ function App() {
     setProcesando(false);
   }
 
-    async function eliminarProducto() {
+  async function eliminarProducto() {
     if (!productoEliminar) return;
 
     setProcesando(true);

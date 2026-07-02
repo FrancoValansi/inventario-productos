@@ -53,8 +53,8 @@ function InventoryTable({
                     <Inventory2Icon fontSize="large" />
 
                     <div>
-                    <h1>Inventario de Productos</h1>
-                    <p>Gestión y control de stock en tiempo real</p>
+                        <h1>Inventario de Productos</h1>
+                        <p>Gestión y control de stock en tiempo real</p>
                     </div>
                 </div>
 
@@ -91,90 +91,101 @@ function InventoryTable({
                     </div>
                 ) : (
 
-                <TableContainer>
+                    <TableContainer>
 
-                    <Table>
+                        <Table>
 
-                        <TableHead>
+                            <TableHead>
 
-                            <TableRow>
-
-                                <TableCell><strong>Nombre</strong></TableCell>
-                                <TableCell><strong>Descripción</strong></TableCell>
-                                <TableCell><strong>Precio</strong></TableCell>
-                                <TableCell><strong>Stock</strong></TableCell>
-                                <TableCell align="right"><strong>Acciones</strong></TableCell>
-
-                            </TableRow>
-
-                        </TableHead>
-
-                        <TableBody>
-
-                            {productos.length === 0 ? (
                                 <TableRow>
 
-                                    <TableCell
-                                        align="center"
-                                        colSpan={5}
-                                    >
-                                        No se encontraron productos.
-                                    </TableCell>
+                                    <TableCell><strong>Nombre</strong></TableCell>
+                                    <TableCell><strong>Descripción</strong></TableCell>
+                                    <TableCell><strong>Precio</strong></TableCell>
+                                    <TableCell><strong>Stock</strong></TableCell>
+                                    <TableCell align="right"><strong>Acciones</strong></TableCell>
 
                                 </TableRow>
 
-                            ) : (
-                                productos.map((producto) => (
+                            </TableHead>
 
-                                    <TableRow key={producto.id} hover>
+                            <TableBody>
 
-                                        <TableCell>{producto.nombre}</TableCell>
+                                {productos.length === 0 ? (
+                                    <TableRow>
 
-                                        <TableCell>{producto.descripcion}</TableCell>
+                                        <TableCell
+                                            align="center"
+                                            colSpan={5}
+                                        >
+                                            <strong>
+                                                {busqueda.trim() === ""
+                                                    ? "No hay productos registrados."
+                                                    : "No se encontraron productos."}
+                                            </strong>
 
-                                        <TableCell>
-                                            $
-                                            {producto.precio.toLocaleString("es-AR")}
-                                        </TableCell>
-
-                                        <TableCell>
-                                            {producto.stock}
-                                        </TableCell>
-
-                                        <TableCell align="right">
-
-                                            <Button
-                                                size="small"
-                                                variant="contained"
-                                                startIcon={<EditIcon />}
-                                                onClick={() => alEditar(producto)}
-                                            >
-                                                Editar
-                                            </Button>
-
-                                            <Button
-                                                size="small"
-                                                color="error"
-                                                variant="contained"
-                                                startIcon={<DeleteIcon />}
-                                                className="eliminar"
-                                                onClick={() => alEliminar(producto)}
-                                            >
-                                                Eliminar
-                                            </Button>
+                                            {busqueda.trim() === "" && (
+                                                <p className="mensaje-vacio">
+                                                    Agregue un producto para comenzar.
+                                                </p>
+                                            )}
 
                                         </TableCell>
 
                                     </TableRow>
 
-                                ))
-                            )}
-                        </TableBody>
+                                ) : (
+                                    productos.map((producto) => (
 
-                    </Table>
+                                        <TableRow key={producto.id} hover>
 
-                </TableContainer>
-            )}
+                                            <TableCell>{producto.nombre}</TableCell>
+
+                                            <TableCell>{producto.descripcion}</TableCell>
+
+                                            <TableCell>
+                                                $
+                                                {producto.precio.toLocaleString("es-AR")}
+                                            </TableCell>
+
+                                            <TableCell>
+                                                {producto.stock}
+                                            </TableCell>
+
+                                            <TableCell align="right">
+
+                                                <Button
+                                                    size="small"
+                                                    variant="contained"
+                                                    startIcon={<EditIcon />}
+                                                    onClick={() => alEditar(producto)}
+                                                >
+                                                    Editar
+                                                </Button>
+
+                                                <Button
+                                                    size="small"
+                                                    color="error"
+                                                    variant="contained"
+                                                    startIcon={<DeleteIcon />}
+                                                    className="eliminar"
+                                                    onClick={() => alEliminar(producto)}
+                                                >
+                                                    Eliminar
+                                                </Button>
+
+                                            </TableCell>
+
+                                        </TableRow>
+
+                                    ))
+                                )}
+                            </TableBody>
+
+                        </Table>
+
+                    </TableContainer>
+                )}
             </Paper>
 
         </div>
